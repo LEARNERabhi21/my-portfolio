@@ -34,6 +34,8 @@ Thumbs.db
 screenshot-*.png
 *.log
 
-# Project Readme
+# Project Readme & Internal Documentation
 README.md
+docs/
+
 
