@@ -33,3 +33,7 @@ Thumbs.db
 # Temporary test / screenshot files
 screenshot-*.png
 *.log
+
+# Project Readme
+README.md
+
