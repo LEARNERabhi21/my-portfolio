@@ -1,0 +1,108 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Award, GraduationCap, CheckCircle2, ExternalLink, ShieldCheck } from 'lucide-react';
+import { certificationsData } from '@/content/portfolioData';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { slideUp, staggerContainer } from '@/animations';
+
+export const Certifications: React.FC = () => {
+  return (
+    <section id="certifications" aria-labelledby="certifications-heading" className="py-20 lg:py-28 relative">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+        {/* Section Header */}
+        <div className="space-y-3 mb-14 text-left">
+          <Badge variant="cyan" className="uppercase tracking-widest text-[11px]">
+            // 05. Formal Qualifications
+          </Badge>
+          <h2
+            id="certifications-heading"
+            className="text-3xl sm:text-4xl font-extrabold text-text-primary tracking-tight"
+          >
+            Education & Verified Credentials
+          </h2>
+          <p className="text-text-secondary max-w-2xl text-base">
+            Academic degrees in computer applications and verified enterprise software engineering milestones.
+          </p>
+        </div>
+
+        {/* Credentials Grid */}
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left"
+        >
+          {certificationsData.map((cert) => (
+            <motion.div key={cert.id} variants={slideUp}>
+              <Card className="h-full flex flex-col justify-between p-6 border-border-subtle bg-bg-surface1/80 hover:border-border-highlight">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-accent-blue/15 text-accent-blue border border-accent-blue/30 font-medium">
+                      {cert.category}
+                    </span>
+                    <span className="text-xs font-mono text-text-muted">
+                      {cert.date}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="w-10 h-10 rounded-lg bg-bg-surface2 border border-border-subtle flex items-center justify-center mb-3">
+                      {cert.category === 'Academic' ? (
+                        <GraduationCap className="w-5 h-5 text-accent-cyan" />
+                      ) : (
+                        <ShieldCheck className="w-5 h-5 text-accent-emerald" />
+                      )}
+                    </div>
+                    <h3 className="font-mono text-base font-bold text-text-primary">
+                      {cert.name}
+                    </h3>
+                    <p className="text-xs text-accent-cyan font-mono">
+                      {cert.issuer}
+                    </p>
+                  </div>
+
+                  {cert.credentialId && (
+                    <div className="text-[11px] font-mono text-text-muted bg-bg-surface2/50 p-2 rounded border border-border-subtle/40">
+                      ID: <span className="text-text-secondary">{cert.credentialId}</span>
+                    </div>
+                  )}
+
+                  {/* Covered Disciplines */}
+                  <div className="space-y-1.5 pt-2">
+                    <div className="text-[11px] font-mono text-text-muted">Key Disciplines:</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {cert.skillsCovered.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="text-[11px] font-mono px-2 py-0.5 rounded bg-bg-surface2 text-text-secondary border border-border-subtle"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {cert.verificationUrl && (
+                  <div className="mt-6 pt-3 border-t border-border-subtle/50 flex items-center justify-between">
+                    <a
+                      href={cert.verificationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-accent-blue hover:text-accent-cyan transition-colors"
+                    >
+                      <span>Institution Details</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                )}
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
